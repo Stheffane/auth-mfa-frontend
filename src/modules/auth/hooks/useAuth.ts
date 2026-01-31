@@ -1,54 +1,45 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthContext } from './useAuthContext';
+import { loginApi, verifyMfaApi } from '../api/auth.api';
 
 export function useAuth() {
   const { state, dispatch } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectTo =
+    (location.state as { from?: string })?.from || '/';
 
   async function login(email: string, password: string) {
     dispatch({ type: 'LOGIN_START' });
 
-    // mock temporário
-    await new Promise((res) => setTimeout(res, 1000));
+    const response = await loginApi(email, password)
 
-    if (email === 'mfa@user.com') {
+    if ('mfaRequired' in response) {
       dispatch({ type: 'MFA_REQUIRED' });
       navigate('/mfa');
       return;
     }
 
-    if (password)
-
     dispatch({
       type: 'LOGIN_SUCCESS',
-      payload: {
-        user: { id: '1', email },
-        token: 'fake-token',
-      },
+      payload: response,
     });
 
-    navigate('/');
+    navigate(redirectTo);
   }
 
   async function verifyMFA(code: string) {
     dispatch({ type: 'LOGIN_START' });
 
-    await new Promise((res) => setTimeout(res, 1000));
-
-    if (code !== '123456') {
-      dispatch({ type: 'MFA_REQUIRED' });
-      return;
-    }
+    const response = await verifyMfaApi(code);
 
     dispatch({
       type: 'LOGIN_SUCCESS',
-      payload: {
-        user: { id: '1', email: 'mfa@user.com' },
-        token: 'fake-token',
-      },
+      payload: response,
     });
 
-    navigate('/');
+    navigate(redirectTo);
   }
 
   function logout() {

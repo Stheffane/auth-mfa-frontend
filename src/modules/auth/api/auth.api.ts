@@ -1,12 +1,24 @@
-export async function loginApi(email: string, password: string) {
+import type { User } from "../types/auth.types";
+
+export type LoginSuccessResponse = {
+  user: User;
+  token: string;
+};
+
+export type LoginMfaRequiredResponse = {
+  mfaRequired: true;
+};
+
+export type LoginResponse =
+  | LoginSuccessResponse
+  | LoginMfaRequiredResponse;
+
+export async function loginApi(email: string, password: string): Promise<LoginResponse> {
   await new Promise((res) => setTimeout(res, 1000));
 
-  if (email === 'mfa@user.com') {
+  if (email === 'mfa@user.com' && password) {
     return { mfaRequired: true };
   }
-   
-  //REVER
-  if (password)
 
   return {
     user: { id: '1', email },
