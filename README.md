@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# Auth Flow with MFA (Frontend-focused)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates a **frontend-oriented authentication flow**
+with **Multi-Factor Authentication (MFA)**, focusing on **architecture,
+state management, and user flow**, rather than backend complexity.
 
-Currently, two official plugins are available:
+## 🎯 Goal
+Showcase how a frontend application can:
+- Handle complex auth states
+- Orchestrate MFA flows
+- Protect routes in a SPA
+- Remain scalable and maintainable
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧱 Tech Stack
+- React 18
+- TypeScript
+- Vite
+- React Router
+- Context + Reducer
 
-## React Compiler
+## 🔐 Authentication Flow
+1. User attempts to access a protected route
+2. Redirected to login
+3. Credentials are validated
+4. MFA step is required (when applicable)
+5. After MFA verification, user is redirected to the original route
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧠 Architectural Decisions
+- **Frontend-first approach**: backend is mocked to focus on UI logic
+- **Explicit auth states**: avoids implicit boolean flags
+- **Modular architecture**: auth logic isolated from UI
+- **Protected routes with redirect memory**
 
-## Expanding the ESLint configuration
+## 🧪 Mocked Backend
+API calls are mocked to simulate:
+- Network latency
+- MFA-required responses
+- Invalid MFA codes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 What could be added next
+- Real backend integration
+- Refresh token rotation
+- Persisted sessions
+- Automated tests
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This project is intentionally scoped to highlight **frontend seniority**.
