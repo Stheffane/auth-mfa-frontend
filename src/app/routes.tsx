@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { LoginPage } from '../modules/auth/pages/LoginPage';
-import { MFAPage } from '../modules/auth/pages/MFAPage';
-import { ProtectedPage } from '../modules/auth/pages/ProtectedPage';
+import { LoginPage } from '../pages/LoginPage';
+import { MFAPage } from '../pages/MFAPage';
+import { ProtectedPage } from '../pages/ProtectedPage';
 import { ProtectedRoute } from '../shared/components/ProtectedRoute';
 
 export const router = createBrowserRouter([
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <ProtectedPage />
       </ProtectedRoute>
-    ) 
+    )
   },
   {
     path: '/login',
