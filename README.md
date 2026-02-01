@@ -42,7 +42,3 @@ API calls are mocked to simulate:
 - Refresh token rotation
 - Persisted sessions
 - Automated tests
-
----
-
-This project is intentionally scoped to highlight **frontend seniority**.
