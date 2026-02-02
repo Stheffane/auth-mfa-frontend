@@ -45,4 +45,14 @@ export const GlobalStyle = createGlobalStyle`
   ul, ol {
     list-style: none;
   }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 14px;
+  }
 `;
+
+

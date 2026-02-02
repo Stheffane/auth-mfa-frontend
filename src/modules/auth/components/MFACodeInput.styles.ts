@@ -15,9 +15,10 @@ export const CodeInput = styled.input<InputProps>`
   height: 48px;
   text-align: center;
   font-size: 20px;
+  color: #ffffff;
 
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 2px solid #ffffff;
   outline: none;
 
   transition: border-color 0.2s ease, opacity 0.2s ease;
@@ -37,7 +38,7 @@ export const CodeInput = styled.input<InputProps>`
 
   &:focus {
     border-color: ${({ $hasError }) =>
-    $hasError ? '#e53935' : '#1976d2'};
+    $hasError ? '#e53935' : '#435f75'};
   }
 `;
 
