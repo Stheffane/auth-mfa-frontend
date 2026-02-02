@@ -1,19 +1,21 @@
 import { useAuth } from '../modules/auth/hooks/useAuth';
+import { ButtonAction } from '../shared/components/Button';
+import { PageBody } from '../shared/components/PageBody';
 
 export function LoginPage() {
   const { login, status } = useAuth();
 
   return (
-    <div>
+    <PageBody>
       <h1>Login</h1>
-      <button onClick={() => login('mfa@user.com', '123')}>
+      <ButtonAction onClick={() => login('mfa@user.com', '123')} variant='primary'>
         Login com MFA
-      </button>
-      <button onClick={() => login('user@test.com', '123')}>
+      </ButtonAction>
+      <ButtonAction onClick={() => login('user@test.com', '123')} variant='secondary'>
         Login sem MFA
-      </button>
+      </ButtonAction>
 
       {status === 'loading' && <p>Loading...</p>}
-    </div>
+    </PageBody>
   );
 }
