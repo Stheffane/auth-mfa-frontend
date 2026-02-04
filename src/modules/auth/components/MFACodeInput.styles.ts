@@ -1,24 +1,21 @@
 import styled, { css } from 'styled-components';
+import type { InputProps } from '../../../shared/components/PageBody/styles';
+import { PRIMARY_COLOR } from '../../../styles/colors';
 
 export const Container = styled.div`
   display: flex;
   gap: 8px;
 `;
 
-type InputProps = {
-  $hasError: boolean;
-  $isSubmitting: boolean;
-};
-
 export const CodeInput = styled.input<InputProps>`
   width: 40px;
   height: 48px;
   text-align: center;
   font-size: 20px;
-  color: #ffffff;
+  color: ${PRIMARY_COLOR};
 
   border-radius: 6px;
-  border: 2px solid #ffffff;
+  border: 2px solid #9e9e9e;
   outline: none;
 
   transition: border-color 0.2s ease, opacity 0.2s ease;
@@ -38,7 +35,7 @@ export const CodeInput = styled.input<InputProps>`
 
   &:focus {
     border-color: ${({ $hasError }) =>
-    $hasError ? '#e53935' : '#435f75'};
+    $hasError ? '#e53935' : PRIMARY_COLOR};
   }
 `;
 
