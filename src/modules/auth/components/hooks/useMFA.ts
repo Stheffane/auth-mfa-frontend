@@ -13,7 +13,7 @@ export function useMFA(onComplete: (code: string) => Promise<void>) {
       setError(null);
       await onComplete(finalCode);
     } catch {
-      setError('Código inválido. Tente novamente.');
+      setError('Invalid code. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -31,6 +31,17 @@ export function useMFA(onComplete: (code: string) => Promise<void>) {
     }
   }
 
+  function setCodeFromPaste(pasted: string) {
+    const digits = pasted.split('').slice(0, 6);
+
+    const filledCode = Array(6)
+      .fill('')
+      .map((_, index) => digits[index] ?? '');
+
+    setCode(filledCode);
+  }
+
+
   function reset() {
     setCode(Array(CODE_LENGTH).fill(''));
     setError(null);
@@ -41,6 +52,7 @@ export function useMFA(onComplete: (code: string) => Promise<void>) {
     error,
     isSubmitting,
     updateDigit,
+    setCodeFromPaste,
     reset,
   };
 }

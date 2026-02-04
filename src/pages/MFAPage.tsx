@@ -7,8 +7,8 @@ export function MFAPage() {
 
   return (
     <PageBody>
-      <h1>Verificação de token</h1>
-      <p>Digite o código de 6 dígitos enviado para você</p>
+      <h1>Token verification</h1>
+      <p>Enter the 6-digit code sent to you.</p>
 
       <MFACodeInput onSubmit={verifyMFA} />
     </PageBody>

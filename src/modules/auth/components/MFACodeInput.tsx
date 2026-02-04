@@ -12,7 +12,7 @@ type Props = {
 
 export function MFACodeInput({ onSubmit }: Props) {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
-  const { code, error, updateDigit, isSubmitting } = useMFA(onSubmit);
+  const { code, error, updateDigit, setCodeFromPaste, isSubmitting } = useMFA(onSubmit);
 
   function handleChange(index: number, value: string) {
     if (isSubmitting) return
@@ -37,15 +37,21 @@ export function MFACodeInput({ onSubmit }: Props) {
     }
   }
 
-  function handlePaste(e: React.ClipboardEvent) {
-    const pasted = e.clipboardData.getData('text').slice(0, 6);
+  function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
+    if (isSubmitting) return;
+
+    e.preventDefault();
+
+    const pasted = e.clipboardData
+      .getData('text')
+      .replace(/\s/g, '')
+      .slice(0, 6);
 
     if (!/^\d+$/.test(pasted)) return;
 
-    pasted.split('').forEach((digit, index) => {
-      updateDigit(index, digit);
-      inputsRef.current[index]?.focus();
-    });
+    setCodeFromPaste(pasted);
+
+    inputsRef.current[pasted.length - 1]?.focus();
   }
 
   useEffect(() => {
@@ -54,7 +60,7 @@ export function MFACodeInput({ onSubmit }: Props) {
 
   return (
     <div>
-      <Container style={{ display: 'flex', gap: 8 }} onPaste={handlePaste}>
+      <Container style={{ display: 'flex', gap: 8 }}>
         {code.map((digit, index) => (
           <CodeInput
             key={index}
@@ -64,6 +70,7 @@ export function MFACodeInput({ onSubmit }: Props) {
             inputMode="numeric"
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
+            onPaste={handlePaste}
             disabled={isSubmitting}
             $hasError={!!error}
             $isSubmitting={isSubmitting}
@@ -73,7 +80,7 @@ export function MFACodeInput({ onSubmit }: Props) {
 
       {isSubmitting && !error && (
         <FeedbackText style={{ color: '#666', marginTop: 8 }}>
-          Verificando código…
+          Checking code…
         </FeedbackText>
       )}
 
