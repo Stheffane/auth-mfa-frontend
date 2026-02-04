@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import { Section } from "./styles";
-import { BlobBackground } from "../BlobBackground";
+import { AnimatedSquares } from "../AnimatedSquares";
 
 export function PageBody({ children }: { children: ReactNode }) {
   return (
     <Section>
-      <BlobBackground />
+      <AnimatedSquares />
       <div className="input-block">
         {children}
       </div>
