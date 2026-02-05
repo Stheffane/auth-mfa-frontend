@@ -11,7 +11,7 @@ export const Section = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex-direction: column;
 
   .input-block {
     width: 40%;
@@ -38,9 +38,13 @@ export const Section = styled.section`
     color: ${PRIMARY_COLOR};
   }
 
-  p, label {
+  p, label, span {
     color: #7e7e7e;
     padding-bottom: 20px;
+  }
+
+  span {
+    font-size: 40px;
   }
 
   > div, form {
