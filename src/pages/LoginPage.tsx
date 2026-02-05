@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../modules/auth/hooks/useAuth';
 import { ButtonAction } from '../shared/components/Button';
-import { PageBody } from '../shared/components/PageBody';
 import { BaseInput } from '../shared/components/PageBody/styles';
 
 type FieldState = {
@@ -35,7 +34,7 @@ export function LoginPage() {
   }
 
   return (
-    <PageBody>
+    <div className="input-block">
       <h1>Login</h1>
 
       <form>
@@ -61,6 +60,7 @@ export function LoginPage() {
           $hasError={password.error}
           $isSubmitting={false}
           onBlur={(e) => validatePassword(e.target.value)}
+          onChange={(e) => e.target.value.length === 8 && validatePassword(e.target.value)}
         />
 
         <ButtonAction type="button" disabled={isFormValid} onClick={() => login('mfa@user.com', '123')} variant='primary' >
@@ -72,6 +72,6 @@ export function LoginPage() {
       </form>
 
       {status === 'loading' && <p>Loading...</p>}
-    </PageBody>
+    </div>
   );
 }
