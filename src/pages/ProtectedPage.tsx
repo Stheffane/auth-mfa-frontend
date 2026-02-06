@@ -7,10 +7,11 @@ export function ProtectedPage() {
   const { logout } = useAuth()
   const [isLogout, setIsLogin] = useState(false);
 
+
   return (
     <PageBody>
       <h1>Protected Area</h1>
-      <CountdownTimer durationInSeconds={15} onExpire={logout} onEnd={setIsLogin} />
+      <CountdownTimer onExpire={logout} onEnd={setIsLogin} />
       {isLogout ? <p>Logout...</p> : <p></p>}
     </PageBody>
   )

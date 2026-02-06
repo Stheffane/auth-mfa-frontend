@@ -1,34 +1,44 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react';
+import { getSessionExpiration } from '../utils/session';
 
 type CountdownTimerProps = {
-  durationInSeconds: number;
   onExpire: () => void;
   onEnd?: Dispatch<SetStateAction<boolean>>;
 };
 
-export function CountdownTimer({
-  durationInSeconds,
-  onExpire,
-  onEnd,
-}: CountdownTimerProps) {
-  const [timeLeft, setTimeLeft] = useState(durationInSeconds);
+export function CountdownTimer({ onExpire, onEnd }: CountdownTimerProps) {
+  const [timeLeft, setTimeLeft] = useState(0);
+  const hasEndedRef = useRef(false);
 
   useEffect(() => {
-    if (timeLeft <= 0) {
-      onExpire();
-      return;
-    }
+    const expiresAt = getSessionExpiration();
+    if (!expiresAt) return;
 
-    if (timeLeft <= 2 && onEnd) {
-      onEnd(true)
-    }
+    const updateTime = () => {
+      const remaining = Math.max(
+        0,
+        Math.floor((expiresAt - Date.now()) / 1000)
+      );
 
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
+      setTimeLeft(remaining);
+
+      if (remaining <= 2 && onEnd && !hasEndedRef.current) {
+        hasEndedRef.current = true;
+        onEnd(true);
+      }
+
+      if (remaining === 0) {
+        clearInterval(interval);
+        onExpire();
+      }
+    };
+
+    updateTime();
+
+    const interval = setInterval(updateTime, 1000);
 
     return () => clearInterval(interval);
-  }, [timeLeft, onExpire]);
+  }, [onExpire, onEnd]);
 
   function formatTime(seconds: number) {
     const minutes = Math.floor(seconds / 60);
