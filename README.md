@@ -2,12 +2,12 @@
 
 Frontend application built with React + TypeScript to demonstrate a complete authentication flow with Multi-Factor Authentication (MFA), protected routes and session control.
 
-✓ Login flow with email/password validation
-✓ MFA verification using 6-digit code
-✓ Protected routes with automatic session timeout
-✓ Automatic logout and redirect on session expiration
-✓ Persistent animated background using Router Layout
-✓ Clean and scalable folder structure
+- Login flow with email/password validation  
+- MFA verification using 6-digit code  
+- Protected routes with automatic session timeout  
+- Automatic logout and redirect on session expiration  
+- Persistent animated background using Router Layout  
+- Clean and scalable folder structure
 
 ## ✦ Tech Stack
 - `React` 
@@ -46,6 +46,7 @@ src/
  ├── shared/            # Reusable components and layouts
  ├── styles/            # Global styles and theme
 ```
+<br />
 
 ---
 
@@ -66,6 +67,8 @@ This project uses mocked authentication for demonstration purposes.
   <img src="./preview/auth-flow.gif" width="800" alt="Auth Flow Demo" />
 </p>
 
+<br />
+  
 ---
 
 ## Scope Disclaimer
