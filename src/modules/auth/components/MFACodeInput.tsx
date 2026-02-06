@@ -59,7 +59,7 @@ export function MFACodeInput({ onSubmit }: Props) {
   }, []);
 
   return (
-    <div>
+    <div className="animated-entry">
       <Container style={{ display: 'flex', gap: 8 }}>
         {code.map((digit, index) => (
           <CodeInput

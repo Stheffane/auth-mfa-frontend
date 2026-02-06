@@ -37,7 +37,7 @@ export function LoginPage() {
     <div className="input-block">
       <h1>Login</h1>
 
-      <form>
+      <form className="animated-entry">
         <label htmlFor="email">Email:</label>
         <BaseInput
           type="email"
