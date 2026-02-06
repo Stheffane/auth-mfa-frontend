@@ -1,4 +1,5 @@
 export type AuthStatus =
+  | 'loading'
   | 'unauthenticated'
   | 'loading'
   | 'mfa_required'
